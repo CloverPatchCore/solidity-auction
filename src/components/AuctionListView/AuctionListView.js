@@ -127,9 +127,10 @@ class AuctionListView extends Component
         const highestBindingBid = auction.highestBindingBid.call()
         const highestBidder = auction.highestBidder.call()
         const canceled = auction.canceled.call()
+        const reserve = auction.reserve.call()
 
         return Promise.all([ owner, startBlock, endBlock, bidIncrement, highestBid, highestBindingBid, highestBidder, canceled ]).then(vals => {
-            const [ owner, startBlock, endBlock, bidIncrement, highestBid, highestBindingBid, highestBidder, canceled ] = vals
+            const [ owner, startBlock, endBlock, bidIncrement, highestBid, highestBindingBid, highestBidder, canceled, reserve ] = vals
             return {
                 contract: auction,
                 address: auctionAddr,
@@ -140,6 +141,7 @@ class AuctionListView extends Component
                 highestBid: this.props.web3.fromWei(highestBid, 'ether').toString(),
                 highestBindingBid: this.props.web3.fromWei(highestBindingBid, 'ether').toString(),
                 highestBidder: highestBidder,
+                reserve: reserve,
                 canceled: canceled,
             }
         })
@@ -248,4 +250,3 @@ class AuctionListView extends Component
     }
 }
 
-export default AuctionListView
